@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gossip Noir Refined</title>
+    <title>The Velvet Curtain Falls - Gossip Noir</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;600&display=swap');
         
@@ -45,60 +45,34 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
         }
         
         header {
             text-align: center;
-            padding: 80px 0;
+            padding: 40px 0;
             position: relative;
             overflow: hidden;
             background: linear-gradient(45deg, var(--midnight), var(--charcoal));
         }
         
         .logo {
-            font-size: 4.5em;
+            font-size: 2.5em;
             margin: 0;
             font-family: 'Cormorant Garamond', serif;
             color: var(--gold);
             text-transform: uppercase;
-            letter-spacing: 15px;
+            letter-spacing: 10px;
             position: relative;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             display: inline-block;
         }
         
-        .logo::before, .logo::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--gold), transparent);
-        }
-        
-        .logo::before {
-            left: -120px;
-        }
-        
-        .logo::after {
-            right: -120px;
-        }
-        
-        .tagline {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2em;
-            color: var(--silver);
-            margin-top: 20px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-        }
-        
         nav {
             background-color: rgba(12, 12, 30, 0.8);
-            padding: 20px 0;
+            padding: 15px 0;
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
@@ -117,16 +91,16 @@
         }
         
         nav ul li {
-            margin: 0 25px;
+            margin: 0 20px;
         }
         
         nav ul li a {
             color: var(--silver);
             text-decoration: none;
             font-weight: 400;
-            font-size: 1.1em;
+            font-size: 1em;
             transition: all 0.3s ease;
-            padding: 10px 0;
+            padding: 5px 0;
             position: relative;
             letter-spacing: 2px;
         }
@@ -152,14 +126,10 @@
             visibility: visible;
             transform: scaleX(1);
         }
-
-        .posts {
-            margin-top: 60px;  /* Add space between nav and first post */
-        }
         
-        .post {
+        .article {
             background-color: rgba(54, 69, 79, 0.1);
-            margin-bottom: 60px;
+            margin: 40px 0;
             padding: 60px;
             position: relative;
             border: 1px solid rgba(229, 228, 226, 0.2);
@@ -167,7 +137,7 @@
             backdrop-filter: blur(5px);
         }
         
-        .post::before {
+        .article::before {
             content: '';
             position: absolute;
             top: 20px;
@@ -178,9 +148,9 @@
             pointer-events: none;
         }
         
-        .post h2 {
+        .article h1 {
             color: var(--gold);
-            font-size: 3em;
+            font-size: 2.5em;
             margin-top: 0;
             font-family: 'Cormorant Garamond', serif;
             border-bottom: 1px solid rgba(229, 228, 226, 0.3);
@@ -189,16 +159,16 @@
             letter-spacing: 2px;
         }
         
-        .post-meta {
+        .article-meta {
             font-style: italic;
             color: var(--silver);
             margin-bottom: 30px;
             text-align: right;
-            font-size: 1em;
+            font-size: 0.9em;
             letter-spacing: 1px;
         }
         
-        .post p {
+        .article p {
             font-size: 1.1em;
             line-height: 2;
             position: relative;
@@ -208,7 +178,7 @@
             margin-bottom: 25px;
         }
         
-        .post p::first-letter {
+        .article p:first-of-type::first-letter {
             font-size: 4em;
             font-family: 'Cormorant Garamond', serif;
             color: var(--gold);
@@ -217,38 +187,26 @@
             line-height: 1;
         }
         
-        .read-more {
-            display: inline-block;
-            margin-top: 30px;
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            letter-spacing: 2px;
-            position: relative;
-            padding-bottom: 5px;
+        .article blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2em;
+            font-style: italic;
+            border-left: 3px solid var(--gold);
+            margin: 30px 0;
+            padding-left: 20px;
+            color: var(--cream);
         }
         
-        .read-more::after {
-            content: '→';
-            position: absolute;
-            right: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: all 0.3s ease;
-        }
-        
-        .read-more:hover {
-            color: var(--silver);
-        }
-        
-        .read-more:hover::after {
-            right: -40px;
+        .article img {
+            max-width: 100%;
+            height: auto;
+            margin: 30px 0;
+            border: 1px solid var(--gold);
         }
         
         footer {
             text-align: center;
-            padding: 60px 0;
+            padding: 40px 0;
             background-color: var(--charcoal);
             color: var(--silver);
             position: relative;
@@ -273,7 +231,7 @@
         
         .footer-logo {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2em;
+            font-size: 1.5em;
             color: var(--gold);
         }
         
@@ -290,7 +248,7 @@
         
         .copyright {
             width: 100%;
-            margin-top: 30px;
+            margin-top: 20px;
             font-size: 0.9em;
             opacity: 0.7;
         }
@@ -299,11 +257,7 @@
             .container {
                 padding: 0 15px;
             }
-            .logo {
-                font-size: 3em;
-                letter-spacing: 10px;
-            }
-            .post {
+            .article {
                 padding: 30px;
             }
             nav ul {
@@ -329,10 +283,10 @@
     <div class="bg-pattern"></div>
     <header>
         <h1 class="logo">Surge Noir</h1>
-        <p class="tagline">A digital journal</p>
     </header>
     <nav>
         <ul>
+            <li><a href="#">HOME</a></li>
             <li><a href="#">SOCIETY</a></li>
             <li><a href="#">SCANDAL</a></li>
             <li><a href="#">SOIRÉES</a></li>
@@ -340,25 +294,17 @@
         </ul>
     </nav>
     <div class="container">
-        <div class="posts">
-            <article class="post">
-                <h2>The lost joy of discovery</h2>
+        <article class="article">
+            <h1>Caught in Paris’s Spell</h1>
             
-                <p>Everything would be more fun with rumors and unconfirmed knowledge and discovery. Someone saying they heard that "at midnight all the ads in Times Square change to art" is so much more interesting and infinitely more fulfilling when you have to venture there to see if it’s true and it turns out to be real...
-                </p>
-                <a href="surgenoirdiscovery.html" class="read-more">CONTINUE READING</a>
-            </article>
-        </div>
-        <div class="posts">
-            <article class="post">
-                <h2>Caught in Paris’s Spell</h2>
-            
-                <p>I came to Paris expecting nothing more than spectacle, but I was wrong. it seems, that I’ve been won over by Paris—a turn of events I certainly didn’t foresee. I arrived ready to dismiss the city as all show and no substance, but somewhere between the twilight on the Seine and the rainy streets, it worked its charm on me.
-                    I came here thinking it would be all show, no substance, but I couldn’t have been more wrong...
-                </p>
-                <a href="surgenoirparis.html" class="read-more">CONTINUE READING</a>
-            </article>
-        </div>
+            <p>Everything would be more fun with rumors and unconfirmed knowledge and discovery. Someone saying they heard that "at midnight all the ads in Times Square change to art" is so much more interesting and infinitely more fulfilling when you have to venture there to see if it’s true and it turns out to be real.</p>
+            <p>Or when you inevitably have questions about our world, instead of pulling out a phone and getting an answer that you will forget quickly and don’t fully understand, going to the library or the museum and researching.</p>
+            <p>I don’t enjoy seeing landscapes and cool places that much, even though I feel like I should. I think part of that is because most of the time seeing cool things nowadays consists of researching and finding these cool places on the web and then going to them, which just takes all the enjoyment out of it.</p>
+            <p>Can you imagine how enjoyable it would be if you were exploring somewhere you had never been and you stumbled upon the most incredible castle that you didn’t know about before or a vast lake down some unknown path?</p>
+            <p>I think even if it was just unknown to you, it might be possible to get that feeling back in the days of the internet. So I vow to stop, as much as I can, always needing to know it all beforehand and being okay with maybe missing some stuff.</p>
+            <img src="img.png" alt="NYC ADS CHANGE (Ha im not showing you).png" />
+            <p>Sep 11, 2024.</p>
+        </article>
     </div>
     <footer>
         <div class="container footer-content">
