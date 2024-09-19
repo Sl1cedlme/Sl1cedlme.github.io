@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gossip Noir Refined</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;600&display=swap');
+        
+        :root {
+            --midnight: #0C0C1E;
+            --gold: #D4AF37;
+            --silver: #E5E4E2;
+            --charcoal: #36454F;
+            --cream: #FFFDD0;
+            --black: #000000;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--midnight);
+            color: var(--silver);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(30deg, var(--charcoal) 12%, transparent 12.5%, transparent 87%, var(--charcoal) 87.5%, var(--charcoal)),
+                linear-gradient(150deg, var(--charcoal) 12%, transparent 12.5%, transparent 87%, var(--charcoal) 87.5%, var(--charcoal)),
+                linear-gradient(30deg, var(--charcoal) 12%, transparent 12.5%, transparent 87%, var(--charcoal) 87.5%, var(--charcoal)),
+                linear-gradient(150deg, var(--charcoal) 12%, transparent 12.5%, transparent 87%, var(--charcoal) 87.5%, var(--charcoal)),
+                linear-gradient(60deg, var(--gold) 25%, transparent 25.5%, transparent 75%, var(--gold) 75%, var(--gold)),
+                linear-gradient(60deg, var(--gold) 25%, transparent 25.5%, transparent 75%, var(--gold) 75%, var(--gold));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, var(--midnight), var(--charcoal));
+        }
+        
+        .logo {
+            font-size: 4.5em;
+            margin: 0;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 15px;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: inline-block;
+        }
+        
+        .logo::before, .logo::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+        }
+        
+        .logo::before {
+            left: -120px;
+        }
+        
+        .logo::after {
+            right: -120px;
+        }
+        
+        .tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            color: var(--silver);
+            margin-top: 20px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        
+        nav {
+            background-color: rgba(12, 12, 30, 0.8);
+            padding: 20px 0;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+        
+        nav ul li {
+            margin: 0 25px;
+        }
+        
+        nav ul li a {
+            color: var(--silver);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            padding: 10px 0;
+            position: relative;
+            letter-spacing: 2px;
+        }
+        
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--gold);
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out;
+        }
+        
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+        
+        nav ul li a:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+
+        .posts {
+            margin-top: 60px;  /* Add space between nav and first post */
+        }
+        
+        .post {
+            background-color: rgba(54, 69, 79, 0.1);
+            margin-bottom: 60px;
+            padding: 60px;
+            position: relative;
+            border: 1px solid rgba(229, 228, 226, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .post::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid var(--gold);
+            pointer-events: none;
+        }
+        
+        .post h2 {
+            color: var(--gold);
+            font-size: 3em;
+            margin-top: 0;
+            font-family: 'Cormorant Garamond', serif;
+            border-bottom: 1px solid rgba(229, 228, 226, 0.3);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        
+        .post-meta {
+            font-style: italic;
+            color: var(--silver);
+            margin-bottom: 30px;
+            text-align: right;
+            font-size: 1em;
+            letter-spacing: 1px;
+        }
+        
+        .post p {
+            font-size: 1.1em;
+            line-height: 2;
+            position: relative;
+            z-index: 1;
+            color: var(--silver);
+            text-align: justify;
+            margin-bottom: 25px;
+        }
+        
+        .post p::first-letter {
+            font-size: 4em;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            float: left;
+            margin-right: 15px;
+            line-height: 1;
+        }
+        
+        .read-more {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .read-more::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: var(--silver);
+        }
+        
+        .read-more:hover::after {
+            right: -40px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            background-color: var(--charcoal);
+            color: var(--silver);
+            position: relative;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--midnight), var(--gold), var(--midnight));
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2em;
+            color: var(--gold);
+        }
+        
+        .footer-links a {
+            color: var(--silver);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .copyright {
+            width: 100%;
+            margin-top: 30px;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            .logo {
+                font-size: 3em;
+                letter-spacing: 10px;
+            }
+            .post {
+                padding: 30px;
+            }
+            nav ul {
+                flex-direction: column;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+            .footer-content {
+                flex-direction: column;
+            }
+            .footer-links {
+                margin-top: 20px;
+            }
+            .footer-links a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <header>
+        <h1 class="logo">Surge Noir</h1>
+        <p class="tagline">A digital journal</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">SOCIETY</a></li>
+            <li><a href="#">SCANDAL</a></li>
+            <li><a href="#">SOIRÉES</a></li>
+            <li><a href="#">SECRETS</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="posts">
+            <article class="post">
+                <h2>Caught in Paris’s Spell</h2>
+            
+                <p>I came to Paris expecting nothing more than spectacle, but I was wrong. it seems, that I’ve been won over by Paris—a turn of events I certainly didn’t foresee. I arrived ready to dismiss the city as all show and no substance, but somewhere between the twilight on the Seine and the rainy streets, it worked its charm on me.
+                    I came here thinking it would be all show, no substance, but I couldn’t have been more wrong...
+                </p>
+                <a href="surgenoirarticle.html" class="read-more">CONTINUE READING</a>
+            </article>
+        </div>
+    </div>
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">SN</div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <p class="copyright">&copy; 2024 Surge Noir. All rights reserved. You know you love me. XOXO</p>
+        </div>
+    </footer>
+</body>
+</html>
